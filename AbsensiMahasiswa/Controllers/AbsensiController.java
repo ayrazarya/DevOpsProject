@@ -124,12 +124,12 @@ public class AbsensiController {
     public List<Absensi> getRekapAbsensiByTanggal(int idKelas, java.util.Date tanggal) {
         List<Absensi> absensiList = new ArrayList<>();
         String query = """
-                SELECT a.id_mahasiswa, m.nama, m.nim, a.status
-                FROM absensi a
-                JOIN mahasiswa m ON a.id_mahasiswa = m.id_mahasiswa
-                JOIN kelas k ON m.id_kelas = k.id_kelas
-                WHERE k.id_kelas = ? AND a.tanggal = ?;
-                """;
+            SELECT a.id_mahasiswa, m.nama, m.nim, a.status
+            FROM absensi a
+            JOIN mahasiswa m ON a.id_mahasiswa = m.id_mahasiswa
+            JOIN kelas k ON m.id_kelas = k.id_kelas
+            WHERE k.id_kelas = ? AND a.tanggal = ?;
+            """;
 
         try (Connection connection = databaseHelper.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -141,7 +141,7 @@ public class AbsensiController {
                 while (resultSet.next()) {
                     Absensi absensi = new Absensi();
                     absensi.setIdMahasiswa(resultSet.getInt("id_mahasiswa"));
-                    absensi.setTanggal(tanggal.toInstant());
+                    absensi.setTanggal(new java.util.Date(tanggal.getTime())); // Make sure to convert properly
                     absensi.setStatus(resultSet.getString("status"));
 
                     Mahasiswa mahasiswa = new Mahasiswa();

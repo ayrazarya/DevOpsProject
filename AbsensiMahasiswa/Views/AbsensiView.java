@@ -8,6 +8,7 @@ import AbsensiMahasiswa.Models.Absensi;
 import AbsensiMahasiswa.Models.Kelas;
 import AbsensiMahasiswa.Models.Mahasiswa;
 
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -115,6 +116,7 @@ public class AbsensiView {
 
     private void rekapAbsensi() {
         Scanner scanner = new Scanner(System.in);
+
         List<Kelas> kelasList = absensiController.getAllKelas();
 
         if (kelasList == null || kelasList.isEmpty()) {
@@ -153,7 +155,10 @@ public class AbsensiView {
             return;
         }
 
-        List<Absensi> rekapAbsensi = absensiController.getRekapAbsensiByTanggal(selectedKelas.getIdKelas(), tanggal);
+        // Convert LocalDate to java.util.Date
+        java.util.Date utilDate = java.sql.Date.valueOf(tanggal);
+
+        List<Absensi> rekapAbsensi = absensiController.getRekapAbsensiByTanggal(selectedKelas.getIdKelas(), utilDate);
 
         if (rekapAbsensi == null || rekapAbsensi.isEmpty()) {
             System.out.println("Tidak ada absensi pada tanggal ini.");
@@ -165,6 +170,7 @@ public class AbsensiView {
             System.out.println(absensi.getMahasiswa().getNama() + " (" + absensi.getMahasiswa().getNim() + ") - Status: " + absensi.getStatus());
         }
     }
+
 
     private void editAbsensi() {
         // Implementasi mirip dengan fungsi rekapAbsensi dengan tambahan untuk edit status absensi.

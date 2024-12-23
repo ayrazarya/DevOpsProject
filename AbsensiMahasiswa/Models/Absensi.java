@@ -1,19 +1,28 @@
 package AbsensiMahasiswa.Models;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Absensi {
     private int idAbsensi;
     private int idMahasiswa;
     private int idAdmin;
-    private Date tanggal;
+    private Date tanggal;  // Use Date for storing the date
     private String status; // "Hadir", "Sakit", "Alfa"
 
     // Navigation Properties
     private Mahasiswa mahasiswa;
     private Admin admin;
 
-    // Getter dan Setter
+    // Constructor
+    public Absensi(int idMahasiswa, LocalDate date, String status, int idAdmin) {
+        this.idMahasiswa = idMahasiswa;
+        this.tanggal = java.sql.Date.valueOf(date);  // Convert LocalDate to java.sql.Date
+        this.status = status;
+        this.idAdmin = idAdmin;
+    }
+
+    // Getter and Setter methods
     public int getIdAbsensi() {
         return idAbsensi;
     }

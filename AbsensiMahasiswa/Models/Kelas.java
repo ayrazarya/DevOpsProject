@@ -9,6 +9,15 @@ public class Kelas {
     // Navigation Property
     private List<Mahasiswa> mahasiswas;
 
+    // Constructor
+    public Kelas(String namaKelas) {
+        this.namaKelas = namaKelas;
+    }
+
+    public Kelas() {
+
+    }
+
     // Getter dan Setter
     public int getIdKelas() {
         return idKelas;
