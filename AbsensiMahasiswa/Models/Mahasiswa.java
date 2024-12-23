@@ -14,6 +14,14 @@ public class Mahasiswa {
     private Kelas kelas;
     private List<Absensi> absensi;
 
+    public Mahasiswa(String nama, String nim, String status, Kelas kelas) {
+        this.nama = nama;
+        this.nim = nim;
+        this.status = status;
+        this.kelas = kelas;
+    }
+
+
     // Getter dan Setter
     public int getIdMahasiswa() {
         return idMahasiswa;
@@ -70,4 +78,7 @@ public class Mahasiswa {
     public void setAbsensi(List<Absensi> absensi) {
         this.absensi = absensi;
     }
+
+   
+    
 }

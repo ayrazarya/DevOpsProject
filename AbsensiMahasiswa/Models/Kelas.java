@@ -14,7 +14,7 @@ public class Kelas {
         this.namaKelas = namaKelas;
     }
 
-    public Kelas() {
+    public Kelas(int idKelas, String kelas) {
 
     }
 

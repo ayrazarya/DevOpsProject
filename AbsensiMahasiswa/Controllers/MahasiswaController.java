@@ -45,7 +45,7 @@ public class MahasiswaController {
             String sqlInsertMahasiswa = "INSERT INTO mahasiswa (nama, nim, id_kelas, status) VALUES (?, ?, ?, 'Aktif')";
             try (PreparedStatement cmdInsertMahasiswa = connection.prepareStatement(sqlInsertMahasiswa)) {
                 cmdInsertMahasiswa.setString(1, mahasiswa.getNama());
-                cmdInsertMahasiswa.setString(2, mahasiswa.getNIM());
+                cmdInsertMahasiswa.setString(2, mahasiswa.getNim());
                 cmdInsertMahasiswa.setInt(3, idKelas);
                 cmdInsertMahasiswa.executeUpdate();
             }
@@ -124,7 +124,7 @@ public class MahasiswaController {
             try (PreparedStatement cmdUpdateMahasiswa = connection.prepareStatement(sqlUpdateMahasiswa)) {
                 cmdUpdateMahasiswa.setString(1, mahasiswa.getNama());
                 cmdUpdateMahasiswa.setInt(2, idKelas);
-                cmdUpdateMahasiswa.setString(3, mahasiswa.getNIM());
+                cmdUpdateMahasiswa.setString(3, mahasiswa.getNim());
                 int rowsAffected = cmdUpdateMahasiswa.executeUpdate();
                 connection.commit(); // Commit transaction
                 return rowsAffected > 0;

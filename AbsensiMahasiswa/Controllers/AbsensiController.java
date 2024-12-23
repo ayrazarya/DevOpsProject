@@ -3,8 +3,6 @@ package AbsensiMahasiswa.Controllers;
 import AbsensiMahasiswa.Models.*;
 import AbsensiMahasiswa.Utils.DatabaseHelper;
 
-import java.sql.Date;
-import java.util.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +22,8 @@ public class AbsensiController {
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             preparedStatement.setInt(1, absensi.getIdMahasiswa());
-            preparedStatement.setDate(2, Date.valueOf(absensi.getTanggal().toLocalDate()));
+            // Convert java.util.Date to java.sql.Date
+            preparedStatement.setDate(2, new java.sql.Date(absensi.getTanggal().getTime()));
             preparedStatement.setString(3, absensi.getStatus());
             preparedStatement.setInt(4, absensi.getIdAdmin());
 
@@ -47,7 +46,7 @@ public class AbsensiController {
              ResultSet resultSet = statement.executeQuery(query)) {
 
             while (resultSet.next()) {
-                Kelas kelas = new Kelas();
+                Kelas kelas = new Kelas(rs.getInt("id_kelas"), rs.getString("kelas"));
                 kelas.setIdKelas(resultSet.getInt("id_kelas"));
                 kelas.setNamaKelas(resultSet.getString("kelas"));
                 kelasList.add(kelas);
@@ -171,7 +170,8 @@ public class AbsensiController {
 
             preparedStatement.setString(1, absensi.getStatus());
             preparedStatement.setInt(2, absensi.getIdMahasiswa());
-            preparedStatement.setDate(3, Date.valueOf(absensi.getTanggal().toLocalDate()));
+            // Convert java.util.Date to java.sql.Date
+            preparedStatement.setDate(3, new java.sql.Date(absensi.getTanggal().getTime()));
 
             preparedStatement.executeUpdate();
         } catch (SQLException ex) {
