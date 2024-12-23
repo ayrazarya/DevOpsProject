@@ -14,9 +14,12 @@ public class Kelas {
         this.namaKelas = namaKelas;
     }
 
-    public Kelas(int idKelas, String kelas) {
 
+    public Kelas(int idKelas, String kelas) {
+        this.idKelas = idKelas;
+        this.namaKelas = kelas;
     }
+
 
     // Getter dan Setter
     public int getIdKelas() {
