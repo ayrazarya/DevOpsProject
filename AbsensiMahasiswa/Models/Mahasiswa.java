@@ -9,6 +9,7 @@ public class Mahasiswa {
     private int idKelas;
     private String status;
 
+
     // Navigation Property
     private Kelas kelas;
     private List<Absensi> absensi;
