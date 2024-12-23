@@ -46,9 +46,7 @@ public class AbsensiController {
              ResultSet resultSet = statement.executeQuery(query)) {
 
             while (resultSet.next()) {
-                Kelas kelas = new Kelas(rs.getInt("id_kelas"), rs.getString("kelas"));
-                kelas.setIdKelas(resultSet.getInt("id_kelas"));
-                kelas.setNamaKelas(resultSet.getString("kelas"));
+                Kelas kelas = new Kelas(resultSet.getInt("id_kelas"), resultSet.getString("kelas"));
                 kelasList.add(kelas);
             }
         } catch (SQLException ex) {
@@ -57,15 +55,16 @@ public class AbsensiController {
         return kelasList;
     }
 
+
     // Method untuk mendapatkan mahasiswa berdasarkan kelas
     public List<Mahasiswa> getMahasiswaByKelas(int idKelas) {
         List<Mahasiswa> mahasiswaList = new ArrayList<>();
         String query = """
-                SELECT m.id_mahasiswa, m.nama, m.nim, k.kelas, m.status
-                FROM mahasiswa m
-                JOIN kelas k ON m.id_kelas = k.id_kelas
-                WHERE m.id_kelas = ? AND m.status = 'Aktif';
-                """;
+            SELECT m.id_mahasiswa, m.nama, m.nim, k.kelas, m.status
+            FROM mahasiswa m
+            JOIN kelas k ON m.id_kelas = k.id_kelas
+            WHERE m.id_kelas = ? AND m.status = 'Aktif';
+            """;
 
         try (Connection connection = databaseHelper.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -88,6 +87,7 @@ public class AbsensiController {
         }
         return mahasiswaList;
     }
+
 
     // Method untuk mendapatkan mahasiswa berdasarkan NIM
     public Mahasiswa getMahasiswaByNIM(String nim) {
@@ -123,12 +123,12 @@ public class AbsensiController {
     public List<Absensi> getRekapAbsensiByTanggal(int idKelas, java.util.Date tanggal) {
         List<Absensi> absensiList = new ArrayList<>();
         String query = """
-            SELECT a.id_mahasiswa, m.nama, m.nim, a.status
-            FROM absensi a
-            JOIN mahasiswa m ON a.id_mahasiswa = m.id_mahasiswa
-            JOIN kelas k ON m.id_kelas = k.id_kelas
-            WHERE k.id_kelas = ? AND a.tanggal = ?;
-            """;
+        SELECT a.id_mahasiswa, m.nama, m.nim, a.status
+        FROM absensi a
+        JOIN mahasiswa m ON a.id_mahasiswa = m.id_mahasiswa
+        JOIN kelas k ON m.id_kelas = k.id_kelas
+        WHERE k.id_kelas = ? AND a.tanggal = ?;
+        """;
 
         try (Connection connection = databaseHelper.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -140,7 +140,7 @@ public class AbsensiController {
                 while (resultSet.next()) {
                     Absensi absensi = new Absensi();
                     absensi.setIdMahasiswa(resultSet.getInt("id_mahasiswa"));
-                    absensi.setTanggal(new java.util.Date(tanggal.getTime())); // Make sure to convert properly
+                    absensi.setTanggal(new java.util.Date(tanggal.getTime()));
                     absensi.setStatus(resultSet.getString("status"));
 
                     Mahasiswa mahasiswa = new Mahasiswa();
@@ -156,6 +156,7 @@ public class AbsensiController {
         }
         return absensiList;
     }
+
 
     // Method untuk update absensi
     public void updateAbsensi(Absensi absensi) {

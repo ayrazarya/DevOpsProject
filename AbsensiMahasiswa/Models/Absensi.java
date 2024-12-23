@@ -21,8 +21,12 @@ public class Absensi {
         this.status = status;
         this.idAdmin = idAdmin;
     }
+    public Absensi() {
+        // No-arg constructor
+    }
 
-    // Getter and Setter methods
+    // Getter and Setter m
+    // ethods
     public int getIdAbsensi() {
         return idAbsensi;
     }

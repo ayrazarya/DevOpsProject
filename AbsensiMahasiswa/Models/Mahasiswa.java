@@ -21,7 +21,9 @@ public class Mahasiswa {
         this.kelas = kelas;
     }
 
-
+    public Mahasiswa() {
+        // No-arg constructor
+    }
     // Getter dan Setter
     public int getIdMahasiswa() {
         return idMahasiswa;
